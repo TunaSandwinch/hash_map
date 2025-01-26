@@ -21,9 +21,11 @@ class HashMap # rubocop:disable Style/Documentation
 
   def get(key)
     address = buckets[position(key)]
-    return unless address.length == 2
+    key_position = key_index(key, address)
 
-    nil
+    return nil if key_position.nil?
+
+    address[key_position + 1]
   end
 
   private
