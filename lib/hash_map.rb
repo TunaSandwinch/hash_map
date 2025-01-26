@@ -53,6 +53,21 @@ class HashMap # rubocop:disable Style/Documentation
     count
   end
 
+  def clear
+    @buckets = Array.new(16) { [] }
+  end
+
+  def keys
+    result = []
+    current_index = 0
+    flatten_buckets = buckets.flatten
+    while current_index <= flatten_buckets.length - 1
+      result << flatten_buckets[current_index]
+      current_index += 2
+    end
+    result
+  end
+
   private
 
   def manage_collisions(key, value)
