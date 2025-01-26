@@ -79,7 +79,30 @@ class HashMap # rubocop:disable Style/Documentation
     result
   end
 
+  def entries
+    all_entries = buckets.delete_if { |item| item == [] }
+    result = []
+    all_entries.each do |item|
+      if item.length == 2
+        result << [item[0], item[1]]
+      else
+        result += collided_pairs(item)
+      end
+    end
+    result
+  end
+
   private
+
+  def collided_pairs(array)
+    current_index = 0
+    result = []
+    while current_index <= array.length - 1
+      result << [array[current_index], array[current_index + 1]]
+      current_index += 2
+    end
+    result
+  end
 
   def manage_collisions(key, value)
     address = buckets[position(key)]
