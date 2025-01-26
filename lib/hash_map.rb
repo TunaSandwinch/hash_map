@@ -68,6 +68,17 @@ class HashMap # rubocop:disable Style/Documentation
     result
   end
 
+  def value
+    result = []
+    current_index = 1
+    flatten_buckets = buckets.flatten
+    while current_index <= flatten_buckets.length
+      result << flatten_buckets[current_index]
+      current_index += 2
+    end
+    result
+  end
+
   private
 
   def manage_collisions(key, value)
