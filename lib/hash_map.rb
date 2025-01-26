@@ -28,6 +28,14 @@ class HashMap # rubocop:disable Style/Documentation
     address[key_position + 1]
   end
 
+  def has?(key)
+    key_position = key_index(key, buckets[position(key)])
+
+    return false if key_position.nil?
+
+    true
+  end
+
   private
 
   def manage_collisions(key, value)
