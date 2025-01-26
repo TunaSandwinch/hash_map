@@ -36,6 +36,15 @@ class HashMap # rubocop:disable Style/Documentation
     true
   end
 
+  def remove(key)
+    address = buckets[position(key)]
+    key_position = key_index(key, address)
+    return nil if key_position.nil?
+
+    address.delete_at(key_position)
+    address.delete_at(key_position)
+  end
+
   private
 
   def manage_collisions(key, value)
