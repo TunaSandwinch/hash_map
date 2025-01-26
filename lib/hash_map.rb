@@ -45,6 +45,14 @@ class HashMap # rubocop:disable Style/Documentation
     address.delete_at(key_position)
   end
 
+  def length
+    count = 0
+    buckets.each do |item|
+      count += item.length / 2 unless item.nil?
+    end
+    count
+  end
+
   private
 
   def manage_collisions(key, value)
